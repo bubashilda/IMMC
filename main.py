@@ -7,6 +7,8 @@ class passenger():
         global ambition_list
         global speed_factor
 
+        self.number = number
+
         self.state_of_man = 0 # текущее состояние агента
 
         self.speed = 10 ## TODO: сделать случайным
@@ -27,7 +29,8 @@ class passenger():
         self.location[0] += self.speed # шаг за единицу времяни
         self.location[1] += self.speed # шаг за единицу времяни
 
-        location_list_step_forward.append()
+        location_list_step_forward.append(passenger_list[self.number].get_location())
+        location_list_step_forward[-1].append(self.number)
 
 
     def get_location(self):
@@ -40,9 +43,9 @@ class passenger():
 
 
 def step():
-    global number_now
     global on_board
     global location_list_now
+    global location_list_step_forward
     global passenger_list
 
     #print(len(location_list_now))
@@ -53,12 +56,19 @@ def step():
     if (distance > start_distance):
         on_board += 1
         location_list_now.append([passenger_list[on_board].get_location().append(on_board)])
+        location_list_step_forward.append([passenger_list[on_board].get_location().append(on_board)])
 
     for i in range(0, on_board):
         passenger_list[i].move()
+        #location_list_step_forward.sort(key=lambda x: x[0]) перенесено в метод move()
+
+    for i in range(0, on_board):
+        if (location_list_now[i][2] != location_list_step_forward[i][2]):
+            pass
 
 
-aggression_limit_1 = 60
+
+aggression_limit_1 = 60 # первыйй лимит агрессии
 start_distance = 50 # можно сделать случайным
 
 
