@@ -95,7 +95,6 @@ for iteration in range(0, 10):
     sat_down_step_forward = 0
 
     step_now = 1
-
     with open("data/simple_model_out/out_of_iteration_" + str(iteration) + ".csv", "w") as f:
         while (sat_down_now != len(ambition_list)):
             f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
