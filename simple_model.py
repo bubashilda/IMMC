@@ -1,5 +1,6 @@
 import random
 
+
 class passenger():
     '''класс пасажир'''
     def __init__(self, number):
@@ -65,42 +66,50 @@ def let_one_in():
         on_board_now += 1
 
 
-number_of_seats = 33
+for iteration in range(0, 10):
+    number_of_seats = 33
 
-plane = [] # список с координатами
-for i in range(0, number_of_seats + 1):
-    plane.append([0, 0, 0, 0, 0, 0, 0]) # проход с индексом 0
-
-
-ambition_list = []
-for i in range(1, number_of_seats + 1):
-    for j in range(0, 7):
-        if (j == 3):
-            continue
-        ambition_list.append([i, j])
-        random.shuffle(ambition_list)
-ambition_list = ambition_list[0: int(number_of_seats * 6 * 0.1)]
+    plane = [] # список с координатами
+    for i in range(0, number_of_seats + 1):
+        plane.append([0, 0, 0, 0, 0, 0, 0]) # проход с индексом 0
 
 
-on_board_now = 0
+    ambition_list = []
+    for i in range(1, number_of_seats + 1):
+        for j in range(0, 7):
+            if (j == 3):
+                continue
+            ambition_list.append([i, j])
+            random.shuffle(ambition_list)
+    ambition_list = ambition_list[0: int(number_of_seats * 6 * 0.50)]
 
-passenger_list = []
 
-passenger_list.append(passenger(on_board_now))
-on_board_now += 1
+    on_board_now = 0
 
-sat_down_now = 0
-sat_down_step_forward = 0
+    passenger_list = []
 
-while (sat_down_now != len(ambition_list)):
-    let_one_in()
+    passenger_list.append(passenger(on_board_now))
+    on_board_now += 1
+
+    sat_down_now = 0
     sat_down_step_forward = 0
-    for i in range(0, len(passenger_list)):
-        passenger_list[i].move()
-        if (passenger_list[i].get_condition() == 2):
-            sat_down_step_forward += 1
 
-    if (sat_down_step_forward != sat_down_now):
-        print(sat_down_step_forward)
+    step_now = 1
 
-    sat_down_now = sat_down_step_forward
+    with open("data/simple_model_out/out_of_iteration_" + str(iteration) + ".csv", "w") as f:
+        while (sat_down_now != len(ambition_list)):
+            let_one_in()
+            sat_down_step_forward = 0
+            for i in range(0, len(passenger_list)):
+                passenger_list[i].move()
+                if (passenger_list[i].get_condition() == 2):
+                    sat_down_step_forward += 1
+
+            if (sat_down_step_forward != sat_down_now):
+                print(sat_down_step_forward)
+
+            step_now += 1
+
+            sat_down_now = sat_down_step_forward
+
+            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
