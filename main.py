@@ -6,24 +6,29 @@ class passenger():
     def __init__(self, number):
         global ambition_list
         global speed_factor
-        self.speed = 10 #ВРЕМЕННО (обязательно кратен speed_factor)
-        self.long = 20 #ВРЕМЕННО #длинна пассажира (в сантиметрах)
-        self.width = 50 #ВРЕМЕННО #ширина пассажира (в сантиметрах)
-        self.location = [0, 0 - self.long]
+
+        self.state_of_man = 0 # текущее состояние агента
+
+        self.speed = 10 ## TODO: сделать случайным
+        self.long = 20 ## TODO: сделать случайным
+        self.width = 50 ## TODO: сделать случайным
+
+        self.aggression = 1 ## TODO: сделать случайным
+
         self.ambition = ambition_list[number] # получение посадочного места
 
+        self.location = [0, 0 - self.long]
+
     def move(self):
-        # шаг за единицу времяни
-        self.location[0] += speed
-        self.location[1] += speed
+        global location_list_step_forward
 
-    def turn_front(self):
-        # поворот передом
-        pass
+        location_list_step_forward = []
 
-    def turn_side(self):
-        # поворот боком
-        pass
+        self.location[0] += self.speed # шаг за единицу времяни
+        self.location[1] += self.speed # шаг за единицу времяни
+
+        location_list_step_forward.append()
+
 
     def get_location(self):
         # получение массива координат
@@ -33,15 +38,33 @@ class passenger():
         # получение посадочного места
         return self.ambition
 
-    def add_new_passenger():
-        # добавление нового пассажира
-        pass
+
+def step():
+    global number_now
+    global on_board
+    global location_list_now
+    global passenger_list
+
+    #print(len(location_list_now))
+    if (len(location_list_now) > 1):
+        location_list_now.sort(key=lambda x: x[0])
+
+    distance = location_list_now[0][1] # получение расстояния от входа последнего
+    if (distance > start_distance):
+        on_board += 1
+        location_list_now.append([passenger_list[on_board].get_location().append(on_board)])
+
+    for i in range(0, on_board):
+        passenger_list[i].move()
 
 
-speed_factor = 10 # коэффицент скорости
+aggression_limit_1 = 60
+start_distance = 50 # можно сделать случайным
+
+
 seat_length = 55 # длинна кресел (в сантиметрах)
 other_length = 20 # длинна промежутков между креслами (в сентиметрах)
-plane_long = 33 * seat_length * other_length
+plane_long = 33 * (seat_length + other_length)
 plane_width = 60 # ширина прохода в метрах
 
 
@@ -53,6 +76,7 @@ for i in range(1, 33 + 1):
         # тут изменять порядок захода пассажиров на борт
         random.shuffle(ambition_list) # слуяайная перестановка
 
+
 # создание списка пассажиров
 passenger_list = []
 for i in range(0, len(ambition_list)):
@@ -60,9 +84,19 @@ for i in range(0, len(ambition_list)):
 
 
 # список координат людей
-location_list = []
-
+location_list_now = []
+location_list_step_forward = []
 
 on_board = 0 # людей на борту
-while True:
-    pass
+in_place = 0 # счётчик людей, сидящих на своих местах
+
+location_list_now.append(passenger_list[on_board].get_location())
+location_list_now[-1].append(on_board)
+
+location_list_step_forward.append(passenger_list[on_board].get_location())
+location_list_step_forward[-1].append(on_board)
+
+on_board += 1
+
+while (in_place != len(passenger_list)):
+    step()
