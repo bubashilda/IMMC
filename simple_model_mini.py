@@ -85,6 +85,8 @@ for iteration in range(0, 10):
 
     with open("data/simple_model_out/out_of_iteration_" + str(iteration) + ".csv", "w") as f:
         while (sat_down_now != len(ambition_list)):
+            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+
             let_one_in()
             sat_down_step_forward = 0
             for i in range(0, len(passenger_list)):
@@ -99,4 +101,4 @@ for iteration in range(0, 10):
 
             sat_down_now = sat_down_step_forward
 
-            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+        f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
