@@ -86,15 +86,18 @@ passenger_list = []
 passenger_list.append(passenger(on_board_now))
 on_board_now += 1
 
-sat_down = 0
+sat_down_now = 0
+sat_down_step_forward = 0
 
-while (sat_down != len(ambition_list)):
+while (sat_down_now != len(ambition_list)):
     let_one_in()
-    sat_down = 0
+    sat_down_step_forward = 0
     for i in range(0, len(passenger_list)):
         passenger_list[i].move()
-
         if (passenger_list[i].get_condition() == 2):
-            sat_down += 1
+            sat_down_step_forward += 1
 
-    print(sat_down)
+    if (sat_down_step_forward != sat_down_now):
+        print(sat_down_step_forward)
+
+    sat_down_now = sat_down_step_forward
