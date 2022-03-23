@@ -41,15 +41,15 @@ root.resizable(width=False, height=False)
 f = open("data/simple_model_out/out_of_iteration_0.csv", "r").readlines()
 for i in range(0, len(f)):
     q = []
-    for j in range(0, 33):
+    for j in range(0, 34):
         w = []
         for k in range(0, 7):
             w.append(f[i][7 * j + k])
         q.append(w)
     print(q)
-    win_1 = cemetery(q).place(x = 20, y = 20)
+    win_1 = cemetery(q).place(x = 20, y = 0)
     root.update()
-    time.sleep(0.01)
+    time.sleep(0.001)
 
 
 
