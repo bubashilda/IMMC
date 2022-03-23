@@ -37,7 +37,7 @@ class passenger():
 
             self.other_time += additional_time
 
-        elif (self.condition == 0): 
+        elif (self.condition == 0):
             if (plane[self.position[0] + 1][self.position[1]] == 0):
                 plane[self.position[0]][self.position[1]] = 0
                 self.position[0] += 1
