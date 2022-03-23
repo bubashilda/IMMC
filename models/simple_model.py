@@ -66,7 +66,7 @@ def let_one_in():
         on_board_now += 1
 
 
-for iteration in range(0, 10):
+for iteration in range(0, 11):
     number_of_seats = 33
 
     plane = [] # список с координатами
@@ -97,7 +97,7 @@ for iteration in range(0, 10):
     step_now = 1
     with open("data/simple_model_out/out_of_iteration_" + str(iteration) + ".csv", "w") as f:
         while (sat_down_now != len(ambition_list)):
-            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+            #f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
 
             let_one_in()
             sat_down_step_forward = 0
@@ -113,4 +113,11 @@ for iteration in range(0, 10):
 
             sat_down_now = sat_down_step_forward
 
-        f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+        #f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+
+
+            s = ""
+            for i in range(0, 34):
+                for j in range(0, 7):
+                    s += str(plane[i][j])
+            f.write(s + "\n")
