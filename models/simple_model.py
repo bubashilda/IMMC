@@ -12,7 +12,7 @@ class passenger():
         self.position = [0, 3]
         plane[self.position[0]][self.position[1]] = 1
 
-        self.other_time = 1
+        self.other_time = 0
         self.speed = 1
 
         self.condition = 0 # 0 - идёт 1 - садится 2 - сидит
@@ -24,24 +24,24 @@ class passenger():
         if ((self.condition == 0) and (self.position[0] == self.ambition[0])):
             self.condition = 1
 
-        elif (self.condition == 0): # если следующее место свободно
-            if (plane[self.position[0] + 1][self.position[1]] == 0):
-                plane[self.position[0]][self.position[1]] = 0
-                self.position[0] += 1
-                plane[self.position[0]][self.position[1]] = 1
-
             additional_time = 0
             if (self.ambition[1] > 3):
                 for i in range(4, self.ambition[1], 1):
                     if (plane[self.position[0]][i] != 0):
-                        additional_time += 0 ## пока постоянное значение
+                        additional_time += 0
 
             if (self.ambition[1] < 3):
                 for i in range(2, self.ambition[1], -1):
                     if (plane[self.position[0]][i] != 0):
-                        additional_time += 1 ## пока постоянное значение
+                        additional_time += 1
 
             self.other_time += additional_time
+
+        elif (self.condition == 0): 
+            if (plane[self.position[0] + 1][self.position[1]] == 0):
+                plane[self.position[0]][self.position[1]] = 0
+                self.position[0] += 1
+                plane[self.position[0]][self.position[1]] = 1
 
         elif (self.condition == 1):
             self.other_time -= 1;
