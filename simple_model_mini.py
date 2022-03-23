@@ -12,7 +12,7 @@ class passenger():
         self.position = [0, 3]
         plane[self.position[0]][self.position[1]] = 1
 
-        self.other_time = 1
+        self.other_time = 0
         self.speed = 1
 
         self.condition = 0 # 0 - идёт 1 - садится 2 - сидит
@@ -24,19 +24,16 @@ class passenger():
         if ((self.condition == 0) and (self.position[0] == self.ambition[0])):
             self.condition = 1
 
-        elif (self.condition == 0): # если следующее место свободно
+        elif (self.condition == 0):
             plane[self.position[0]][self.position[1]] = 0
             self.position[0] += 1
             plane[self.position[0]][self.position[1]] = 1
 
         elif (self.condition == 1):
-            self.other_time -= 1;
-
-            if (self.other_time <= 0):
-                plane[self.position[0]][self.position[1]] = 0
-                self.position = self.ambition
-                plane[self.position[0]][self.position[1]] = 1
-                self.condition = 2
+            plane[self.position[0]][self.position[1]] = 0
+            self.position = self.ambition
+            plane[self.position[0]][self.position[1]] = 1
+            self.condition = 2
 
 
     def get_condition(self):

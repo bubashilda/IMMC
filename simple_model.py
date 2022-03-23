@@ -34,7 +34,7 @@ class passenger():
             if (self.ambition[1] > 3):
                 for i in range(4, self.ambition[1], 1):
                     if (plane[self.position[0]][i] != 0):
-                        additional_time += 1 ## пока постоянное значение
+                        additional_time += 0 ## пока постоянное значение
 
             if (self.ambition[1] < 3):
                 for i in range(2, self.ambition[1], -1):
