@@ -81,7 +81,7 @@ for iteration in range(0, 10):
                 continue
             ambition_list.append([i, j])
             random.shuffle(ambition_list)
-    ambition_list = ambition_list[0: int(number_of_seats * 6 * 0.50)]
+    ambition_list = ambition_list[0: int(number_of_seats * 6 * 1)]
 
 
     on_board_now = 0
