@@ -49,7 +49,7 @@ for i in range(0, len(f)):
     print(q)
     win_1 = cemetery(q).place(x = 20, y = 0)
     root.update()
-    time.sleep(0.001)
+    time.sleep(0.01)
 
 
 
