@@ -70,7 +70,6 @@ for iteration in range(0, 10):
             random.shuffle(ambition_list)
     ambition_list = ambition_list[0: int(number_of_seats * 6 * 1)]
 
-
     on_board_now = 0
 
     passenger_list = []
