@@ -49,6 +49,10 @@ class passenger():
                 plane[self.position[0]][self.position[1]] = 0
                 self.position = self.ambition
                 plane[self.position[0]][self.position[1]] = 1
+                self.condition = 2
+
+    def get_condition(self):
+        return self.condition
 
 
 def let_one_in():
@@ -56,12 +60,12 @@ def let_one_in():
     global passenger_list
     global plane
 
-    if (plane[0][3] == 0):
+    if ((plane[0][3] == 0) and (on_board_now < len(ambition_list))):
         passenger_list.append(passenger(on_board_now))
         on_board_now += 1
 
 
-number_of_seats = 10
+number_of_seats = 33
 
 plane = [] # список с координатами
 for i in range(0, number_of_seats + 1):
@@ -82,9 +86,15 @@ passenger_list = []
 passenger_list.append(passenger(on_board_now))
 on_board_now += 1
 
-while (on_board_now != len(ambition_list)):
-    let_one_in()
+sat_down = 0
 
+while (sat_down != len(ambition_list)):
+    let_one_in()
+    sat_down = 0
     for i in range(0, len(passenger_list)):
         passenger_list[i].move()
-    print(on_board_now)
+
+        if (passenger_list[i].get_condition() == 2):
+            sat_down += 1
+
+    print(sat_down)
