@@ -71,6 +71,7 @@ plane = [] # список с координатами
 for i in range(0, number_of_seats + 1):
     plane.append([0, 0, 0, 0, 0, 0, 0]) # проход с индексом 0
 
+
 ambition_list = []
 for i in range(1, number_of_seats + 1):
     for j in range(0, 7):
@@ -78,6 +79,8 @@ for i in range(1, number_of_seats + 1):
             continue
         ambition_list.append([i, j])
         random.shuffle(ambition_list)
+ambition_list = ambition_list[0: int(number_of_seats * 6 * 0.1)]
+
 
 on_board_now = 0
 
