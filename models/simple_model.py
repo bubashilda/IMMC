@@ -215,7 +215,7 @@ for iteration in range(0, 11):
             sat_down_now = sat_down_step_forward
 
 
-            #f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
 
 
             s = ""
