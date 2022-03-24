@@ -12,7 +12,7 @@ class passenger():
         self.position = [0, 3]
         plane[self.position[0]][self.position[1]] = 1
 
-        self.other_time = 0
+        self.other_time = 10
         self.speed = 1
 
         self.condition = 0 # 0 - идёт 1 - садится 2 - сидит
@@ -28,14 +28,14 @@ class passenger():
             if (self.ambition[1] > 3):
                 for i in range(4, self.ambition[1], 1):
                     if (plane[self.position[0]][i] != 0):
-                        additional_time += 0
+                        additional_time += 1
 
             if (self.ambition[1] < 3):
                 for i in range(2, self.ambition[1], -1):
                     if (plane[self.position[0]][i] != 0):
                         additional_time += 1
 
-            self.other_time += additional_time
+            self.other_time += additional_time * 10
 
         elif (self.condition == 0):
             if (plane[self.position[0] + 1][self.position[1]] == 0):
@@ -81,7 +81,7 @@ for iteration in range(0, 11):
                 continue
             ambition_list.append([i, j])
             random.shuffle(ambition_list)
-    ambition_list = ambition_list[0: int(number_of_seats * 6 * 0.85)]
+    ambition_list = ambition_list[0: int(number_of_seats * 6 * 1)]
 
 
     on_board_now = 0
