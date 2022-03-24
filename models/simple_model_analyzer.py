@@ -22,11 +22,3 @@ with open('res.csv', 'w') as file:
                 sum += j
             arr[i] = sum/len(arr[i])
             writer.writerow([i + 1, round(arr[i] / 198, 4)])
-
-
-
-
-
-
-
-

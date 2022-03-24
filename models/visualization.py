@@ -3,7 +3,7 @@ from random import *
 import time
 
 
-class cemetery(Frame):
+class model(Frame):
     def __init__(self, q):
         super().__init__()
         self.get_graphics(q)
@@ -47,9 +47,9 @@ for i in range(0, len(f)):
             w.append(f[i][7 * j + k])
         q.append(w)
     print(q)
-    win_1 = cemetery(q).place(x = 20, y = 0)
+    win_1 = model(q).place(x = 20, y = 0)
     root.update()
-    time.sleep(0.01)
+    #time.sleep(0.01)
 
 
 
