@@ -7,12 +7,17 @@ class passenger():
         global ambition_list
         global plane
 
+        random.seed(1)
+
         self.number = number
         self.ambition = ambition_list[self.number]
         self.position = [0, 3]
         plane[self.position[0]][self.position[1]] = 1
 
-        self.other_time = 3
+        self.other_time_for_feet = random.choice([1, 2, 3]) # от 1 до 3
+        self.other_time_for_bags = random.choice([2, 3, 4]) # от 2 до 4
+        self.time_to_stand = 0
+
         self.speed = 1
 
         self.condition = 0 # 0 - идёт 1 - садится 2 - сидит
@@ -20,37 +25,50 @@ class passenger():
 
     def move(self):
         global plane
+        global other_time_list
+        global conditions_list
 
         if ((self.condition == 0) and (self.position[0] == self.ambition[0])):
             self.condition = 1
 
+            conditions_list[self.position[0]][self.position[1]] = self.condition
+
+            self.time_to_stand = self.other_time_for_feet + self.other_time_for_bags
+
             additional_time = 0
             if (self.ambition[1] > 3):
                 for i in range(4, self.ambition[1], 1):
-                    if (plane[self.position[0]][i] != 0):
-                        additional_time += 1
+                    if (other_time_list[self.position[0]][i] != 0):
+                        additional_time += other_time_list[self.position[0]][i]
 
             if (self.ambition[1] < 3):
                 for i in range(2, self.ambition[1], -1):
-                    if (plane[self.position[0]][i] != 0):
-                        additional_time += 1
+                    if (other_time_list[self.position[0]][i] != 0):
+                        additional_time += other_time_list[self.position[0]][i]
 
-            self.other_time += additional_time * 4
+            self.time_to_stand += additional_time * 2
 
         elif (self.condition == 0):
             if (plane[self.position[0] + 1][self.position[1]] == 0):
                 plane[self.position[0]][self.position[1]] = 0
+                conditions_list[self.position[0]][self.position[1]] = 3
                 self.position[0] += 1
                 plane[self.position[0]][self.position[1]] = 1
+                conditions_list[self.position[0]][self.position[1]] = self.condition
 
         elif (self.condition == 1):
-            self.other_time -= 1
+            self.time_to_stand -= 1
 
-            if (self.other_time <= 0):
+            if (self.time_to_stand <= 0):
                 plane[self.position[0]][self.position[1]] = 0
+                conditions_list[self.position[0]][self.position[1]] = 3
                 self.position = self.ambition
                 plane[self.position[0]][self.position[1]] = 1
                 self.condition = 2
+                conditions_list[self.position[0]][self.position[1]] = self.condition
+
+                other_time_list[self.position[0]][self.position[1]] = self.other_time_for_feet
+
 
     def get_condition(self):
         return self.condition
@@ -149,12 +167,20 @@ for iteration in range(0, 11):
     for i in range(0, number_of_seats + 1):
         plane.append([0, 0, 0, 0, 0, 0, 0]) # проход с индексом 0
 
-    ambition_list = []
+    other_time_list = []
+    for i in range(0, number_of_seats + 1):
+        other_time_list.append([0, 0, 0, 0, 0, 0, 0])
 
+    conditions_list = []
+    for i in range(0, number_of_seats + 1):
+        conditions_list.append([3, 3, 3, 3, 3, 3, 3])
+
+
+    ambition_list = []
     #################################
-    #sort_random(1)
-    #sort_sections(0.8, 1, 3, 2)
-    sort_windows(1)
+    sort_random(1)
+    #sort_sections(1, 1, 2, 3)
+    #sort_windows(1)
     ################################
 
 
@@ -181,7 +207,8 @@ for iteration in range(0, 11):
                     sat_down_step_forward += 1
 
             if (sat_down_step_forward != sat_down_now):
-                print(sat_down_step_forward)
+                #print(sat_down_step_forward)
+                pass
 
             step_now += 1
 
@@ -194,5 +221,5 @@ for iteration in range(0, 11):
             s = ""
             for i in range(0, 34):
                 for j in range(0, 7):
-                    s += str(plane[i][j])
+                    s += str(conditions_list[i][j])
             f.write(s + "\n")
