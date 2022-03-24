@@ -11,29 +11,45 @@ class model(Frame):
 
     def get_graphics(self, q):
 
-        self.master.title("симулятор заразы")
+        self.master.title("самолётик")
         self.pack(fill=BOTH, expand=1)
-        canvas = Canvas(self, width=150, height=700, bg="bisque")
+        canvas = Canvas(self, width=1450, height=310, bg="bisque")
 
-        x_help = 10
-        y_help = 10
-        for y in range(0, len(q)):
-            for x in range(0, 7):
-                if (q[y][x] == "0"):
+        x_help = 15
+        y_help = 15
+        for x in range(0, len(q)):
+            for y in range(0, 7):
+                if (q[x][y] == "0"):
                     canvas.create_rectangle(
-                    x_help + x * 20, y_help + y * 20, x_help + x * 20 + 15, y_help + y * 20 + 15,
-                    outline="BurlyWood", fill="Green")
-                else:
-                    canvas.create_rectangle(
-                    x_help + x * 20, y_help + y * 20, x_help + x * 20 + 15, y_help + y * 20 + 15,
+                    x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="BurlyWood", fill="Red")
 
+                elif (q[x][y] == "1"):
+                    canvas.create_rectangle(
+                    x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
+                    outline="BurlyWood", fill="Blue")
+
+                elif (q[x][y] == "2"):
+                    canvas.create_rectangle(
+                    x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
+                    outline="BurlyWood", fill="Green")
+
+                else:
+                    if (y == 3):
+                        canvas.create_rectangle(
+                        x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
+                        outline="BurlyWood", fill="Grey")
+
+                    else:
+                        canvas.create_rectangle(
+                        x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
+                        outline="BurlyWood", fill="Azure3")
 
         canvas.pack(fill=BOTH, expand=1)
 
 
 root = Tk()
-root.geometry("200x700" + "+" + str(10) + "+" + str(50))
+root.geometry("1500x350" + "+" + str(10) + "+" + str(50))
 root.title("симулятор заразы")
 root.configure(bg='Snow')
 root.resizable(width=False, height=False)
@@ -49,7 +65,7 @@ for i in range(0, len(f)):
     print(q)
     win_1 = model(q).place(x = 20, y = 0)
     root.update()
-    #time.sleep(0.01)
+    time.sleep(0.01)
 
 
 
