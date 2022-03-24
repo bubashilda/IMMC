@@ -44,7 +44,7 @@ class passenger():
                 plane[self.position[0]][self.position[1]] = 1
 
         elif (self.condition == 1):
-            self.other_time -= 1;
+            self.other_time -= 1
 
             if (self.other_time <= 0):
                 plane[self.position[0]][self.position[1]] = 0
