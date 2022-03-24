@@ -65,7 +65,7 @@ for i in range(0, len(f)):
     print(q)
     win_1 = model(q).place(x = 20, y = 10)
     root.update()
-    time.sleep(0.01)
+    time.sleep(0.005)
 
 
 
