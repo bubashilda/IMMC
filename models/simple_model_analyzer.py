@@ -9,7 +9,7 @@ with open('res.csv', 'w') as file:
         arr.append([])
 
     for i in range(1, 1000):
-        filename = f'/Users/glebspivakovskij/Documents/GitHub/IMMC/models/data/simple_model_out/out_of_iteration_{i}.csv'
+        filename = f'models/data/simple_model_out/out_of_iteration_{i}.csv'
         with open(filename, 'r') as file:
             for string in file:
                 tmp = string.split(';')
