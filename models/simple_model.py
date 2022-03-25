@@ -178,9 +178,9 @@ for iteration in range(0, 11):
 
     ambition_list = []
     #################################
-    #sort_random(1)
+    sort_random(1)
     #sort_sections(1, 1, 2, 3)
-    sort_windows(1)
+    #sort_windows(1)
     ################################
 
 
@@ -214,9 +214,7 @@ for iteration in range(0, 11):
 
             sat_down_now = sat_down_step_forward
 
-
             #f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
-
 
             s = ""
             for i in range(0, 34):
