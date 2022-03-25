@@ -21,28 +21,28 @@ class model(Frame):
             for y in range(0, 7):
                 if (q[x][y] == "0"):
                     canvas.create_rectangle(
-                    x_help + x * 40, y_help + y * 40, x_help + x * 40 + 30, y_help + y * 40 + 30,
+                    x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="BurlyWood", fill="Red")
 
                 elif (q[x][y] == "1"):
                     canvas.create_rectangle(
-                    x_help + x * 40, y_help + y * 40, x_help + x * 40 + 30, y_help + y * 40 + 30,
+                    x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="BurlyWood", fill="Blue")
 
                 elif (q[x][y] == "2"):
                     canvas.create_rectangle(
-                    x_help + x * 40, y_help + y * 40, x_help + x * 40 + 30, y_help + y * 40 + 30,
+                    x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="BurlyWood", fill="Green")
 
                 else:
                     if (y == 3):
                         canvas.create_rectangle(
-                        x_help + x * 40, y_help + y * 40, x_help + x * 40 + 30, y_help + y * 40 + 30,
+                        x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                         outline="BurlyWood", fill="Grey")
 
                     else:
                         canvas.create_rectangle(
-                        x_help + x * 40, y_help + y * 40, x_help + x * 40 + 30, y_help + y * 40 + 30,
+                        x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                         outline="BurlyWood", fill="Azure3")
 
         canvas.pack(fill=BOTH, expand=1)
@@ -65,7 +65,9 @@ for i in range(0, len(f)):
     print(q)
     win_1 = model(q).place(x = 20, y = 10)
     root.update()
-    time.sleep(0.1)
+    time.sleep(0.005)
+
+
 
 
 root.mainloop()
