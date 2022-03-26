@@ -335,16 +335,16 @@ for iteration in range(0, 10):
     list_of_moving_points = []
     list_of_seats_coordinates = []
     ####################################################
-    #build_for_flying_wing() # для летающего крыла
-    build_for_narrow_body() # для узкофезюляжного
+    build_for_flying_wing() # для летающего крыла
+    #build_for_narrow_body() # для узкофезюляжного
 
     ####################################################
 
     ####################################################
-    #build_ambition_list_for_flying_wing_random(1) # для летающего крыла
+    build_ambition_list_for_flying_wing_random(1) # для летающего крыла
 
     ####################################################
-    build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного
+    #build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного
 
     ####################################################
     on_board_now = 0
@@ -358,80 +358,3 @@ for iteration in range(0, 10):
             print(sat_down)
 
             f.write(str(step) + ";" + str(sat_down) + "\n")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #
