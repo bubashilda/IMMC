@@ -3,7 +3,7 @@
 import random
 
 WIDTH_AISLE = 5
-passengers_on_board = 3
+passengers_on_board = 32
 aisles = []
 buffer = []
 
@@ -32,9 +32,11 @@ class Aisle:
                 for j in range(inx_aisle - 1, -1, -1):
                     if self.seating[i][j] != 0:
                         inx_left = j
+                        break
                 for j in range(inx_aisle + 1, len(self.seating[i])):
                     if self.seating[i][j] != 0:
                         inx_right = j
+                        break
                 if inx_right == -1 and inx_left != -1:
                     inx_desired = inx_left
                 elif inx_right != -1 and inx_left == -1:
@@ -51,6 +53,7 @@ class Aisle:
                 if inx_desired != -1:
                     self.seating[i][inx_desired].state = 1
                     self.seating[i][inx_desired].x = x1
+                    self.seating[i][inx_desired].y = self.y * WIDTH_AISLE
                     self.standing.insert(inx_insert_in_standing, self.seating[i][inx_desired])
                     self.seating[i].pop(inx_desired)
                     self.seating[i].insert(inx_desired, 0)
@@ -153,7 +156,12 @@ def move_in_buffer():
 
 
 sec = 0
-aisles.append(Aisle(seating=[[Passenger(1, 700, 1, 1), [], Passenger(1, 6, 1, 1), Passenger(1, 80, 1, 1)]], y=2))
+aisles.append(Aisle(seating=[[Passenger(5, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
+                             [Passenger(5, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
+                             [Passenger(5, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
+                             [Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
+                             [Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
+                             [Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)]], y=3))
 while passengers_on_board != 0:
     for aisle in aisles:
         aisle.move()

@@ -11,7 +11,7 @@ class model(Frame):
 
     def get_graphics(self, q):
 
-        self.master.title("весёлый самолётик")
+        self.master.title("Plane")
         self.pack(fill=BOTH, expand=1)
         canvas = Canvas(self, width=1450, height=310, bg="gray80")
 
@@ -22,17 +22,17 @@ class model(Frame):
                 if (q[x][y] == "0"):
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="gray0", fill="red")
+                    outline="gray0", fill="salmon")
 
                 elif (q[x][y] == "1"):
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="gray0", fill="blue")
+                    outline="gray0", fill="cyan4")
 
                 elif (q[x][y] == "2"):
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="gray0", fill="green")
+                    outline="gray0", fill="grey52")
 
                 else:
                     if (y == 3):
@@ -49,8 +49,8 @@ class model(Frame):
 
 
 root = Tk()
-root.geometry("1500x350" + "+" + str(10) + "+" + str(50))
-root.title("весёлый самолётик")
+root.geometry("1450x350" + "+" + str(10) + "+" + str(50))
+root.title("Plane")
 root.configure(bg='Snow')
 root.resizable(width=False, height=False)
 

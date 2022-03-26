@@ -4,6 +4,7 @@ arr = []
 for i in range(1000):
     arr.append(0)
 ITERATIONS = 1000
+PART = 0.3
 maximum = 0
 for i in range(ITERATIONS):
     with open(f'../models/data/simple_model_out/out_of_iteration_{i}.csv') as file:
@@ -14,9 +15,9 @@ for i in range(ITERATIONS):
 arr[maximum // ITERATIONS] = 1
 arr = arr[0:(maximum // ITERATIONS) + 1]
 for i in range(maximum // ITERATIONS):
-    arr[i] /= (ITERATIONS * 198)
+    arr[i] /= (ITERATIONS * 198 * PART)
 print(maximum / ITERATIONS)
-with open('../models/data/results/wind-mid-aisle.csv', 'w') as file:
+with open('../models/data/results/3-2-1.csv', 'w') as file:
     writer = csv.writer(file)
     writer.writerow(['time', 'part'])
     for i in range(len(arr)):
