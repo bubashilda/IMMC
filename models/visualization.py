@@ -11,9 +11,9 @@ class model(Frame):
 
     def get_graphics(self, q):
 
-        self.master.title("самолётик")
+        self.master.title("весёлый самолётик")
         self.pack(fill=BOTH, expand=1)
-        canvas = Canvas(self, width=1450, height=310, bg="bisque")
+        canvas = Canvas(self, width=1450, height=310, bg="gray80")
 
         x_help = 15
         y_help = 15
@@ -22,35 +22,35 @@ class model(Frame):
                 if (q[x][y] == "0"):
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="BurlyWood", fill="Red")
+                    outline="gray0", fill="red")
 
                 elif (q[x][y] == "1"):
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="BurlyWood", fill="Blue")
+                    outline="gray0", fill="blue")
 
                 elif (q[x][y] == "2"):
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="BurlyWood", fill="Green")
+                    outline="gray0", fill="green")
 
                 else:
                     if (y == 3):
                         canvas.create_rectangle(
                         x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                        outline="BurlyWood", fill="Grey")
+                        outline="gray80", fill="gray80")
 
                     else:
                         canvas.create_rectangle(
                         x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                        outline="BurlyWood", fill="Azure3")
+                        outline="gray0", fill="azure")
 
         canvas.pack(fill=BOTH, expand=1)
 
 
 root = Tk()
 root.geometry("1500x350" + "+" + str(10) + "+" + str(50))
-root.title("симулятор заразы")
+root.title("весёлый самолётик")
 root.configure(bg='Snow')
 root.resizable(width=False, height=False)
 
@@ -65,6 +65,6 @@ for i in range(0, len(f)):
     print(q)
     win_1 = model(q).place(x = 20, y = 10)
     root.update()
-    time.sleep(0.005)
+    time.sleep(0.05)
 
 root.mainloop()
