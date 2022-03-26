@@ -142,7 +142,7 @@ class passenger():
 
 def let_one_in():
     global on_board_now
-    global ambition_list
+    global ambition_list5
     global list_of_roads
     global list_of_passengers
     if (on_board_now < len(ambition_list) and list_of_roads[0][0].can_i_add_one()):

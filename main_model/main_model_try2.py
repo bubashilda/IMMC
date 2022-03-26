@@ -4,6 +4,8 @@ ambition_list = []
 
 list_of_passengers = []
 list_of_roads = []
+list_of_seats = []
+
 main_road = []
 ambition_list = []
 
@@ -46,6 +48,8 @@ class passenger():
         global main_road
 
         global sat_down
+
+        global list_of_seats
 
         global list_of_moving_points
         global list_of_seats_coordinates
@@ -109,7 +113,6 @@ class passenger():
 
         elif (self.condition == 2):
             '''идёт к месту'''
-
             max_step_long = 0
             for i in range(0, len(list_of_roads[self.position])):
                 if (list_of_roads[self.position][i][0] == self.number):
@@ -118,7 +121,18 @@ class passenger():
                 if (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() > self.visible_position[1] + self.speed):
                     max_step_long = self.speed
                 else:
-                    max_step_long = (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() - self.visible_position[1])
+                    if (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_condition() == 3):
+                        if (len(list_of_roads[self.position]) > i + 2):
+                            if (list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() > self.visible_position[1] + self.speed // 2):
+                                max_step_long = self.speed // 2
+                            else:
+                                max_step_long = (list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() - self.visible_position[1])
+                        else:
+                            max_step_long = self.speed // 2
+                    else:
+                        max_step_long = (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() - self.visible_position[1])
+
+
             else:
                 max_step_long = self.speed
 
@@ -130,6 +144,12 @@ class passenger():
                 self.visible_position[2] = self.condition
                 self.visible_position[1] = self.ambition[1]
 
+                for i in range(0, len(list_of_seats)):
+                    if (list_of_seats[i][0] == self.ambition[0] and list_of_seats[i][1] == self.ambition[1]):
+                        if (self.ambition[2] > 3 and list_of_seats[i][2] > 3 and list_of_seats[i][0] < self.ambition[2]):
+                            self.oll_time += list_of_seats[i][3]
+                        elif (self.ambition[2] < 3 and list_of_seats[i][2] < 3 and list_of_seats[i][0] > self.ambition[2]):
+                            self.oll_time += list_of_seats[i][3]
             else:
                 '''обычный шаг'''
                 self.visible_position[1] += max_step_long
@@ -138,6 +158,9 @@ class passenger():
             self.oll_time -= 1
             if (self.oll_time <= 0):
                 self.condition = 4
+
+                list_of_seats.append([self.ambition[0], self.ambition[1], self.ambition[2], self.time_to_sit])
+
                 sat_down += 1
                 self.position = self.ambition[0]
                 self.visible_position[2] = self.condition
@@ -153,6 +176,10 @@ class passenger():
 
     def get_last_point(self):
         return self.visible_position[1] - self.long
+
+
+    def get_condition(self):
+        return self.condition
 
 
 def let_one_in():
@@ -204,6 +231,7 @@ def take_a_step():
         else:
             n = len(main_road)
 
+'''####################################################################################################################################################################'''
 
 def build_for_flying_wing():
     '''собрать параметры для летающего крыла'''
@@ -211,6 +239,7 @@ def build_for_flying_wing():
 
     global list_of_roads
     global main_road
+    global list_of_seats
 
     global list_of_moving_points
     global list_of_seats_coordinates
@@ -219,6 +248,7 @@ def build_for_flying_wing():
     global seats_width
     global seats_lenght
     global distance_between_seats
+
 
     list_of_roads.append([])
     list_of_roads.append([])
@@ -231,8 +261,33 @@ def build_for_flying_wing():
     list_of_moving_points.append(seats_width * 3 * 7 + road_wight * 3)
 
 
-def build_ambition_list_for_flying_wing():
-    '''массив с билетами для летающего крыла'''
+def build_for_narrow_body():
+    '''собрать параметры для узкофузюляжного'''
+    global ambition_list
+
+    global list_of_roads
+    global main_road
+    global list_of_seats
+
+    global list_of_moving_points
+    global list_of_seats_coordinates
+
+    global road_wight
+    global seats_width
+    global seats_lenght
+    global distance_between_seats
+
+    list_of_roads.append([])
+
+    list_of_moving_points.append(seats_width * 3)
+
+
+def build_ambition_list_for_flying_wing_random(n):
+    '''массив с билетами для летающего крыла (случайно)'''
+    global ambition_list
+    global distance_between_seats
+    global seats_lenght
+
     for i in range(0, 4):
         for j in range(0, 14):
             for k in range(0, 7):
@@ -245,13 +300,53 @@ def build_ambition_list_for_flying_wing():
                 ambition_list.append([i, j * (seats_lenght + distance_between_seats), k])
 
     random.shuffle(ambition_list)
+    ambition_list = ambition_list[0: int(len(ambition_list) * n)]
 
 
-for iteration in range(0, 1):
-    build_for_flying_wing()
+def build_ambition_list_for_narrow_body_random(n):
+    '''массив с билетами для узко фезюляжного (случайно)'''
+    global ambition_list
+    global distance_between_seats
+    global seats_lenght
 
-    build_ambition_list_for_flying_wing()
+    for i in range(0, 33):
+        for j in range(0, 7):
+            if (j == 3):
+                continue
+            ambition_list.append([0, i * (seats_lenght + distance_between_seats), j])
 
+    random.shuffle(ambition_list)
+    ambition_list = ambition_list[0: int(len(ambition_list) * n)]
+
+'''####################################################################################################################################################################'''
+
+for iteration in range(0, 10):
+
+    ambition_list = []
+
+    list_of_passengers = []
+    list_of_roads = []
+
+    list_of_seats = []
+
+    main_road = []
+    ambition_list = []
+
+    list_of_moving_points = []
+    list_of_seats_coordinates = []
+    ####################################################
+    #build_for_flying_wing() # для летающего крыла
+    build_for_narrow_body() # для узкофезюляжного
+
+    ####################################################
+
+    ####################################################
+    #build_ambition_list_for_flying_wing_random(1) # для летающего крыла
+
+    ####################################################
+    build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного
+
+    ####################################################
     on_board_now = 0
     sat_down = 0
     step = 0
@@ -261,6 +356,8 @@ for iteration in range(0, 1):
             let_one_in()
             take_a_step()
             print(sat_down)
+
+            f.write(str(step) + ";" + str(sat_down) + "\n")
 
 
 
