@@ -282,6 +282,29 @@ def build_for_narrow_body():
     list_of_moving_points.append(seats_width * 3)
 
 
+def build_for_two_entrance():
+    '''собрать параметры для широкого с двумя рядами'''
+    global ambition_list
+
+    global list_of_roads
+    global main_road
+    global list_of_seats
+
+    global list_of_moving_points
+    global list_of_seats_coordinates
+
+    global road_wight
+    global seats_width
+    global seats_lenght
+    global distance_between_seats
+
+    list_of_roads.append([])
+    list_of_roads.append([])
+
+    list_of_moving_points.append(seats_width * 3)
+    list_of_moving_points.append(seats_width * 3 * 3 + road_wight)
+
+
 def build_ambition_list_for_flying_wing_random(n):
     '''массив с билетами для летающего крыла (случайно)'''
     global ambition_list
@@ -318,6 +341,27 @@ def build_ambition_list_for_narrow_body_random(n):
     random.shuffle(ambition_list)
     ambition_list = ambition_list[0: int(len(ambition_list) * n)]
 
+
+def build_ambition_list_for_two_entrance_random(n):
+    '''массив с билетами для для широкого с двумя рядами (случайно)'''
+    global ambition_list
+    global distance_between_seats
+    global seats_lenght
+
+    for i in range(0, 2):
+        for j in range(0, 20):
+            for k in range(0, 7):
+                if (k == 3):
+                    continue
+                if (i == 0 and j >= 11 and k < 3):
+                    continue
+                if (i == 3 and j >= 11 and k > 3):
+                    continue
+                ambition_list.append([i, j * (seats_lenght + distance_between_seats), k])
+
+    random.shuffle(ambition_list)
+    ambition_list = ambition_list[0: int(len(ambition_list) * n)]
+
 '''####################################################################################################################################################################'''
 
 for iteration in range(0, 10):
@@ -335,17 +379,15 @@ for iteration in range(0, 10):
     list_of_moving_points = []
     list_of_seats_coordinates = []
     ####################################################
-    build_for_flying_wing() # для летающего крыла
+    #build_for_flying_wing() # для летающего крыла
     #build_for_narrow_body() # для узкофезюляжного
-
+    build_for_two_entrance() # для самолёта с двумя проходами
     ####################################################
 
     ####################################################
-    build_ambition_list_for_flying_wing_random(1) # для летающего крыла
-
-    ####################################################
-    #build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного
-
+    #build_ambition_list_for_flying_wing_random(1) # для летающего крыла (случайно)
+    #build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного (случайно)
+    build_ambition_list_for_two_entrance_random(1) # для широкого с двумя проходами (случайно)
     ####################################################
     on_board_now = 0
     sat_down = 0
