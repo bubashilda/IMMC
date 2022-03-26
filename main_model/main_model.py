@@ -24,12 +24,20 @@ class road():
             list_of_passengers[i].move()
 
 
-    def can_i_add_one():
+    def can_i_add_one(self):
         global road_width
         for i in range(0, road_width):
             if (self.local_list_of_agents[i] != -1):
                 return False
         return True
+
+
+    def remove_one(self, position):
+        self.local_list_of_agents[position] = -1
+
+
+    def add_new(self, number):
+        self.local_list_of_agents[0] = number
 
 
 class main_road(road):
@@ -38,22 +46,10 @@ class main_road(road):
         road.__init__(self, number, long, outs)
 
 
-    def add_new(self, number):
-        self.local_list_of_agents[0] = number
-
-
 class long_roads(road):
     '''дорога к креслам'''
     def __init__(self, number, long, out_list):
         road.__init__(self, number, long, out_list)
-
-
-    def add_new(self, number):
-        pass
-
-
-    def remove_one(self, position):
-        pass
 
 
 class passenger():
@@ -66,7 +62,7 @@ class passenger():
         self.time_to_sit = random.choice([2, 3, 4, 5, 6, 7, 8, 9]) # не точно (хз)
         self.time_to_bags = random.choice([4, 5, 6, 7, 8, 9, 10, 11]) # не точно (хз)
         self.oll_time = self.time_to_sit + self.time_to_bags
-        self.condition = 0  # 0 - идёт, 1 - садится, 2 - сидит
+        self.condition = 0  # 0 - идёт, 1 - садится, 2 - сидит, 3 - поворачаивает
         self.ambition = ambition_list[self.number]
 
 
@@ -79,6 +75,7 @@ class passenger():
             if (self.position[0] == 0):
                 if (self.position[1] >= list_of_roads[0][0].out_list[self.ambition[0]]):
                     # тут выполняем поворот (перемещение в другой массив)
+
                     pass
                 elif (list_of_roads[0][0].out_list[self.ambition[0]] - list_of_roads[0][0].local_list_of_agents[self.position[1]] > self.speed):
                     # тут шаг
@@ -88,9 +85,9 @@ class passenger():
                     list_of_roads[0][0].local_list_of_agents[self.position[1]] = self.number
                 else:
                     # тут явное перемещение
-                    self.position[1] = list_of_roads[0][0].out_list[self.ambition[0]]
+                    self.position[1] = list_of_еroads[0][0].out_list[self.ambition[0]]
             else:
-                if (self.position[2] >= list_of_roads[1][self.ambition[0]].out_list[self.ambition[1]]):
+                if (self.position[1] >= list_of_roads[1][self.ambition[0]].out_list[self.ambition[1]]):
                     self.condition = 1
                 elif (list_of_roads[1][self.ambition[0]].out_list[self.ambition[1]] - self.position[1] > self.speed):
                     # тут шаг
