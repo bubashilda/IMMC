@@ -172,9 +172,9 @@ for iteration in range(0, 1000):
                 pass
             step_now += 1
             sat_down_now = sat_down_step_forward
-            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
-            # s = ""
-            # for i in range(0, 34):
-            #     for j in range(0, 7):
-            #         s += str(conditions_list[i][j])
-            # f.write(s + "\n")
+            # f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+            s = ""
+            for i in range(0, 34):
+                for j in range(0, 7):
+                    s += str(conditions_list[i][j])
+            f.write(s + "\n")
