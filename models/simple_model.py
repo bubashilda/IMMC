@@ -134,7 +134,7 @@ def sort_windows(n):
     ambition_list = (parts[0] + parts[1] + parts[2])
 
 
-for iteration in range(0, 1000):
+for iteration in range(0, 10):
     number_of_seats = 33
     plane = [] # список с координатами
     for i in range(0, number_of_seats + 1):
@@ -147,7 +147,7 @@ for iteration in range(0, 1000):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    # sort_random(1)
+    sort_random(1)
     # sort_sections(1, 3, 2, 1)
     # sort_windows(1)
     ################################
