@@ -143,9 +143,26 @@ def sort_steffen(n):
     g_3 = []
     g_4 = []
     for i in range(1, number_of_seats + 1, 2):
-        g_1.appen()
-        pass
-    pass
+        g_1.append([i, 0])
+        g_1.append([i, 1])
+        g_1.append([i, 2])
+
+        g_2.append([i, 4])
+        g_2.append([i, 5])
+        g_2.append([i, 6])
+    for i in range(2, number_of_seats + 1, 2):
+        g_3.append([i, 0])
+        g_3.append([i, 1])
+        g_3.append([i, 2])
+
+        g_4.append([i, 4])
+        g_4.append([i, 5])
+        g_4.append([i, 6])
+    random.shuffle(g_1)
+    random.shuffle(g_2)
+    random.shuffle(g_3)
+    random.shuffle(g_4)
+    ambition_list = g_1 + g_2 + g_3 + g_4
 
 
 def sort_piramidka(n):
@@ -177,6 +194,37 @@ def sort_piramidka(n):
     ambition_list = g_1 + g_2 + g_3 + g_4 + g_5
 
 
+def sort_steffen_and_group(n):
+    global ambition_list
+    global number_of_seats
+    ambition_list = []
+    g_1 = []
+    g_2 = []
+    g_3 = []
+    g_4 = []
+    for i in range(1, number_of_seats + 1, 2):
+        g_1.append([i, 0])
+        g_1.append([i, 1])
+        g_1.append([i, 2])
+
+        g_2.append([i, 4])
+        g_2.append([i, 5])
+        g_2.append([i, 6])
+    for i in range(2, number_of_seats + 1, 2):
+        g_3.append([i, 0])
+        g_3.append([i, 1])
+        g_3.append([i, 2])
+
+        g_4.append([i, 4])
+        g_4.append([i, 5])
+        g_4.append([i, 6])
+    random.shuffle(g_1)
+    random.shuffle(g_2)
+    random.shuffle(g_3)
+    random.shuffle(g_4)
+    ambition_list = g_1 + g_2 + g_3 + g_4
+
+
 for iteration in range(0, 10):
     number_of_seats = 33
     plane = [] # список с координатами
@@ -190,10 +238,11 @@ for iteration in range(0, 10):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    #sort_random(0.85)
+    #sort_random(1)
     #sort_sections(1, 3, 2, 1)
     #sort_windows(1)
-    sort_piramidka(1)
+    #sort_piramidka(1)
+    sort_steffen(1)
     ################################
     on_board_now = 0
     passenger_list = []
