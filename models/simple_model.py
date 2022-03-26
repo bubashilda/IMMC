@@ -134,6 +134,49 @@ def sort_windows(n):
     ambition_list = (parts[0] + parts[1] + parts[2])
 
 
+def sort_steffen(n):
+    global ambition_list
+    global number_of_seats
+    ambition_list = []
+    g_1 = []
+    g_2 = []
+    g_3 = []
+    g_4 = []
+    for i in range(1, number_of_seats + 1, 2):
+        g_1.appen()
+        pass
+    pass
+
+
+def sort_piramidka(n):
+    global ambition_list
+    global number_of_seats
+    ambition_list = []
+    g_1 = []
+    g_2 = []
+    g_3 = []
+    g_4 = []
+    g_5 = []
+    for i in range(1, number_of_seats + 1):
+        for j in range(0, 7):
+            if (i >= 13 and (j == 0 or j == 6)):
+                g_1.append([i, j])
+            elif ((i >= 6 and i <= 12 and (j == 0 or j == 6)) or (i >= 13 and i <= 33 and (j == 1 or j == 5))):
+                g_2.append([i, j])
+            elif ((i >= 1 and i <= 5 and (j == 0 or j == 6)) or (i >= 6 and i <= 22 and (j == 1 or j == 5))):
+                g_3.append([i, j])
+            elif ((i >= 1 and i <= 5 and (j == 1 or j == 5)) or (i >= 22 and i <= 33 and (j == 2 or j == 4))):
+                g_4.append([i, j])
+            elif (i <= 21 and (j == 2 or j == 4)):
+                g_5.append([i, j])
+    random.shuffle(g_1)
+    random.shuffle(g_2)
+    random.shuffle(g_3)
+    random.shuffle(g_4)
+    random.shuffle(g_5)
+    ambition_list = g_1 + g_2 + g_3 + g_4 + g_5
+
+
 for iteration in range(0, 10):
     number_of_seats = 33
     plane = [] # список с координатами
@@ -147,9 +190,10 @@ for iteration in range(0, 10):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    sort_random(0.85)
+    #sort_random(0.85)
     #sort_sections(1, 3, 2, 1)
     #sort_windows(1)
+    sort_piramidka(1)
     ################################
     on_board_now = 0
     passenger_list = []

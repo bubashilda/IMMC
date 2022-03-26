@@ -231,7 +231,7 @@ def take_a_step():
         else:
             n = len(main_road)
 
-'''####################################################################################################################################################################'''
+'''############################################################№№№№№№№№#########'''
 
 def build_for_flying_wing():
     '''собрать параметры для летающего крыла'''
@@ -362,7 +362,15 @@ def build_ambition_list_for_two_entrance_random(n):
     random.shuffle(ambition_list)
     ambition_list = ambition_list[0: int(len(ambition_list) * n)]
 
-'''####################################################################################################################################################################'''
+
+def build_ambition_list_for_narrow_body_sections(n, p1, p2, p3):
+    '''массив с билетами для узко фезюляжного (по группам)'''
+    global ambition_list
+    global distance_between_seats
+    global seats_lenght
+
+
+'''############################################################№№№№№№№№#########'''
 
 for iteration in range(0, 10):
 
@@ -378,6 +386,10 @@ for iteration in range(0, 10):
 
     list_of_moving_points = []
     list_of_seats_coordinates = []
+
+
+
+
     ####################################################
     #build_for_flying_wing() # для летающего крыла
     #build_for_narrow_body() # для узкофезюляжного
@@ -389,6 +401,10 @@ for iteration in range(0, 10):
     #build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного (случайно)
     build_ambition_list_for_two_entrance_random(1) # для широкого с двумя проходами (случайно)
     ####################################################
+
+
+
+
     on_board_now = 0
     sat_down = 0
     step = 0
