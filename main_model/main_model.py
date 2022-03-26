@@ -60,7 +60,7 @@ class passenger():
         move_it_to = 0
         for i in range(self.position[2], self.position[2] + self.speed + road_width):
             if (self.position[0] == 0):
-                if
+                pass
 
 
 

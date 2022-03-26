@@ -134,7 +134,7 @@ def sort_windows(n):
     ambition_list = (parts[0] + parts[1] + parts[2])
 
 
-for iteration in range(0, 11):
+for iteration in range(0, 1000):
     number_of_seats = 33
     plane = [] # список с координатами
     for i in range(0, number_of_seats + 1):
@@ -147,9 +147,9 @@ for iteration in range(0, 11):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    sort_random(1)
-    #sort_sections(0.75, 1, 2, 3)
-    #sort_windows(0.6)
+    # sort_random(1)
+    # sort_sections(1, 3, 2, 1)
+    # sort_windows(1)
     ################################
     on_board_now = 0
     passenger_list = []
@@ -172,9 +172,9 @@ for iteration in range(0, 11):
                 pass
             step_now += 1
             sat_down_now = sat_down_step_forward
-            #f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
-            s = ""
-            for i in range(0, 34):
-                for j in range(0, 7):
-                    s += str(conditions_list[i][j])
-            f.write(s + "\n")
+            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+            # s = ""
+            # for i in range(0, 34):
+            #     for j in range(0, 7):
+            #         s += str(conditions_list[i][j])
+            # f.write(s + "\n")

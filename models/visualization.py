@@ -67,7 +67,4 @@ for i in range(0, len(f)):
     root.update()
     time.sleep(0.005)
 
-
-
-
 root.mainloop()
