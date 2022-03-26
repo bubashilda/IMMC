@@ -147,7 +147,7 @@ for iteration in range(0, 10):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    sort_random(1)
+    sort_random(0.85)
     #sort_sections(1, 3, 2, 1)
     #sort_windows(1)
     ################################
