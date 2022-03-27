@@ -2,6 +2,7 @@ import random
 
 
 class passenger():
+    '''класс пасажир'''
     def __init__(self, number):
         global ambition_list
         global plane
@@ -15,6 +16,7 @@ class passenger():
         self.time_to_stand = 0 # 0
         self.speed = 1
         self.condition = 0 # 0 - идёт 1 - садится 2 - сидит
+
 
     def move(self):
         global plane
@@ -52,6 +54,7 @@ class passenger():
                 conditions_list[self.position[0]][self.position[1]] = self.condition
                 other_time_list[self.position[0]][self.position[1]] = self.other_time_for_feet
 
+
     def get_condition(self):
         return self.condition
 
@@ -78,7 +81,7 @@ def sort_random(n):
     ambition_list = ambition_list[0: int(number_of_seats * 6 * n)]
 
 
-def sort_sections(n, p1, p2, p3, w=0.0):
+def sort_sections(n, p1, p2, p3):
     global ambition_list
     global number_of_seats
     ambition_list = []
@@ -101,21 +104,10 @@ def sort_sections(n, p1, p2, p3, w=0.0):
     random.shuffle(parts[0])
     random.shuffle(parts[1])
     random.shuffle(parts[2])
-    for j in range(int(len(parts[0] + parts[1] + parts[2]) * w) // 2):
-        match = {0: random.randint(0, len(parts[0]) - 1),
-                 1: random.randint(0, len(parts[1]) - 1),
-                 2: random.randint(0, len(parts[2]) - 1)}
-        indexes = [0, 1, 2]
-        inx1 = random.choice(indexes)
-        indexes.remove(inx1)
-        inx2 = random.choice(indexes)
-        tmp = parts[inx1][match.get(inx1)]
-        parts[inx1][match.get(inx1)] = parts[inx2][match.get(inx2)]
-        parts[inx2][match.get(inx2)] = tmp
     ambition_list = (parts[p1 - 1] + parts[p2 - 1] + parts[p3 - 1])
 
 
-def sort_windows(n, w=0.0):
+def sort_windows(n):
     global ambition_list
     global number_of_seats
     ambition_list = []
@@ -139,21 +131,101 @@ def sort_windows(n, w=0.0):
     random.shuffle(parts[0])
     random.shuffle(parts[1])
     random.shuffle(parts[2])
-    for j in range(int(len(parts[0] + parts[1] + parts[2]) * w) // 2):
-        match = {0: random.randint(0, len(parts[0]) - 1),
-                 1: random.randint(0, len(parts[1]) - 1),
-                 2: random.randint(0, len(parts[2]) - 1)}
-        indexes = [0, 1, 2]
-        inx1 = random.choice(indexes)
-        indexes.remove(inx1)
-        inx2 = random.choice(indexes)
-        tmp = parts[inx1][match.get(inx1)]
-        parts[inx1][match.get(inx1)] = parts[inx2][match.get(inx2)]
-        parts[inx2][match.get(inx2)] = tmp
     ambition_list = (parts[0] + parts[1] + parts[2])
 
 
-for iteration in range(0, 1000):
+def sort_steffen(n):
+    global ambition_list
+    global number_of_seats
+    ambition_list = []
+    g_1 = []
+    g_2 = []
+    g_3 = []
+    g_4 = []
+    for i in range(1, number_of_seats + 1, 2):
+        g_1.append([i, 0])
+        g_1.append([i, 1])
+        g_1.append([i, 2])
+
+        g_2.append([i, 4])
+        g_2.append([i, 5])
+        g_2.append([i, 6])
+    for i in range(2, number_of_seats + 1, 2):
+        g_3.append([i, 0])
+        g_3.append([i, 1])
+        g_3.append([i, 2])
+
+        g_4.append([i, 4])
+        g_4.append([i, 5])
+        g_4.append([i, 6])
+    random.shuffle(g_1)
+    random.shuffle(g_2)
+    random.shuffle(g_3)
+    random.shuffle(g_4)
+    ambition_list = g_1 + g_2 + g_3 + g_4
+
+
+def sort_piramidka(n):
+    global ambition_list
+    global number_of_seats
+    ambition_list = []
+    g_1 = []
+    g_2 = []
+    g_3 = []
+    g_4 = []
+    g_5 = []
+    for i in range(1, number_of_seats + 1):
+        for j in range(0, 7):
+            if (i >= 13 and (j == 0 or j == 6)):
+                g_1.append([i, j])
+            elif ((i >= 6 and i <= 12 and (j == 0 or j == 6)) or (i >= 13 and i <= 33 and (j == 1 or j == 5))):
+                g_2.append([i, j])
+            elif ((i >= 1 and i <= 5 and (j == 0 or j == 6)) or (i >= 6 and i <= 22 and (j == 1 or j == 5))):
+                g_3.append([i, j])
+            elif ((i >= 1 and i <= 5 and (j == 1 or j == 5)) or (i >= 22 and i <= 33 and (j == 2 or j == 4))):
+                g_4.append([i, j])
+            elif (i <= 21 and (j == 2 or j == 4)):
+                g_5.append([i, j])
+    random.shuffle(g_1)
+    random.shuffle(g_2)
+    random.shuffle(g_3)
+    random.shuffle(g_4)
+    random.shuffle(g_5)
+    ambition_list = g_1 + g_2 + g_3 + g_4 + g_5
+
+
+def sort_steffen_and_group(n):
+    global ambition_list
+    global number_of_seats
+    ambition_list = []
+    g_1 = []
+    g_2 = []
+    g_3 = []
+    g_4 = []
+    for i in range(1, number_of_seats + 1, 2):
+        g_1.append([i, 0])
+        g_1.append([i, 1])
+        g_1.append([i, 2])
+
+        g_2.append([i, 4])
+        g_2.append([i, 5])
+        g_2.append([i, 6])
+    for i in range(2, number_of_seats + 1, 2):
+        g_3.append([i, 0])
+        g_3.append([i, 1])
+        g_3.append([i, 2])
+
+        g_4.append([i, 4])
+        g_4.append([i, 5])
+        g_4.append([i, 6])
+    random.shuffle(g_1)
+    random.shuffle(g_2)
+    random.shuffle(g_3)
+    random.shuffle(g_4)
+    ambition_list = g_1 + g_2 + g_3 + g_4
+
+
+for iteration in range(0, 10):
     number_of_seats = 33
     plane = [] # список с координатами
     for i in range(0, number_of_seats + 1):
@@ -166,9 +238,11 @@ for iteration in range(0, 1000):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    # sort_random(1)
-    sort_sections(1, 3, 2, 1, w=0.4)
-    # sort_windows(1, w=0.4)
+    #sort_random(1)
+    #sort_sections(1, 3, 2, 1)
+    #sort_windows(1)
+    #sort_piramidka(1)
+    sort_steffen(1)
     ################################
     on_board_now = 0
     passenger_list = []
@@ -191,9 +265,9 @@ for iteration in range(0, 1000):
                 pass
             step_now += 1
             sat_down_now = sat_down_step_forward
-            f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
-            # s = ""
-            # for i in range(0, 34):
-            #     for j in range(0, 7):
-            #         s += str(conditions_list[i][j])
-            # f.write(s + "\n")
+            # f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+            s = ""
+            for i in range(0, 34):
+                for j in range(0, 7):
+                    s += str(conditions_list[i][j])
+            f.write(s + "\n")
