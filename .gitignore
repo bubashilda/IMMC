@@ -4,3 +4,4 @@ venv
 models/data
 models/concatenate.py
 models/converter.py
+main_model/main_model_out
