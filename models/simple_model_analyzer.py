@@ -17,7 +17,7 @@ arr = arr[0:(maximum // ITERATIONS) + 1]
 for i in range(maximum // ITERATIONS):
     arr[i] /= (ITERATIONS * 198 * PART)
 print(maximum / ITERATIONS)
-with open('data/results/3-2-1.csv', 'w') as file:
+with open('data/results/steffen.csv', 'w') as file:
     writer = csv.writer(file)
     writer.writerow(['time', 'part'])
     for i in range(len(arr)):

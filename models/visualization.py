@@ -19,23 +19,23 @@ class model(Frame):
         y_help = 15
         for x in range(0, len(q)):
             for y in range(0, 7):
-                if (q[x][y] == "0"):
+                if q[x][y] == "0":
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="gray0", fill="salmon")
 
-                elif (q[x][y] == "1"):
+                elif q[x][y] == "1":
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="gray0", fill="cyan4")
 
-                elif (q[x][y] == "2"):
+                elif q[x][y] == "2":
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                     outline="gray0", fill="grey52")
 
                 else:
-                    if (y == 3):
+                    if y == 3:
                         canvas.create_rectangle(
                         x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
                         outline="gray80", fill="gray80")
@@ -65,6 +65,6 @@ for i in range(0, len(f)):
     print(q)
     win_1 = model(q).place(x = 20, y = 10)
     root.update()
-    time.sleep(0.005)
+    time.sleep(0.1)
 
 root.mainloop()
