@@ -21,27 +21,21 @@ distance_between_seats = 3
 class passenger():
     def __init__(self, number):
         global ambition_list
-
         global main_road
-
         self.number = number
-
         self.position = -1
-
         self.visible_position = [self.number, 0, 0]
-
-        self.long = 3 # сделать рандомным
-        self.speed = 2 # сделать рандомным
-        self.time_to_sit = 2 # сделать рандомным
-        self.time_to_bags = 4 # сделать рандомным
+        self.long = 3
+        self.speed = 3
+        self.time_to_sit = 3
+        self.time_to_bags = 8
 
         self.oll_time = self.time_to_sit + self.time_to_bags # общее время сесть
-        self.condition = 0 # 0 - идёт по главной, 1 - поворачивает, 2 идёт к месту, 3 - садиться, 4 - сидит
+        self.condition = 0 # 0 - идёт по главной, 1 - поворачивает, 2 идёт к месту, 3 - садится, 4 - сидит
 
         self.ambition = ambition_list[self.number]
 
         main_road.append(self.visible_position)
-
 
     def move(self):
         global list_of_roads
@@ -55,75 +49,76 @@ class passenger():
         global list_of_seats_coordinates
         #print(list_of_roads)
         #print(self.visible_position)
-        if (self.condition == 0):
-            '''идёт по главной'''
-            '''определение максимальной длинны шага'''
+        if self.condition == 0:
+            # идет по главной
+            # определение максимальной длины шага
             max_step_long = 0
             for i in range(0, len(main_road)):
-                if (main_road[i][0] == self.number):
+                if main_road[i][0] == self.number:
                     break
-            if (len(main_road) > i + 1):
-                if (list_of_passengers[main_road[i + 1][0]].get_last_point() > self.visible_position[1] + self.speed):
+            if len(main_road) > i + 1:
+                if list_of_passengers[main_road[i + 1][0]].get_last_point() > self.visible_position[1] + self.speed:
                     max_step_long = self.speed
                 else:
                     max_step_long = (list_of_passengers[main_road[i + 1][0]].get_last_point() - self.visible_position[1])
             else:
                 max_step_long = self.speed
 
-            '''проверка на выход'''
-            if (list_of_moving_points[self.ambition[0]] - max_step_long <= self.visible_position[1]):
-                '''шаг ровно к точке входа'''
+            # проверка на выход
+            if list_of_moving_points[self.ambition[0]] - max_step_long <= self.visible_position[1]:
+                # шаг ровно к точке входа
                 self.condition = 1
                 self.visible_position[2] = self.condition
                 self.visible_position[1] = list_of_moving_points[self.ambition[0]]
             else:
-                '''обычный шаг'''
+                # обычный шаг
                 self.visible_position[1] += max_step_long
 
         elif (self.condition == 1):
-            '''готов повернуть''' # считаем, что прохот не достаточно широкий, чтобы идти в 2 потока, но достаточно широкий, чтобы не замедлять
-            if (len(list_of_roads[self.ambition[0]]) != 0):
+            # готов повернуть
+            # считаем, что проход недостаточно широкий, чтобы идти в 2 потока, но достаточно широкий, чтобы не замедлять
+            if len(list_of_roads[self.ambition[0]]) != 0:
                 #print(list_of_roads[self.ambition[0]][0])
-                if (list_of_passengers[list_of_roads[self.ambition[0]][0][0]].get_last_point() >= road_wight):
+                if list_of_passengers[list_of_roads[self.ambition[0]][0][0]].get_last_point() >= road_wight:
                     '''переносим'''
                     self.condition = 2
                     self.position = self.ambition[0]
                     self.visible_position[1] = 0
                     self.visible_position[2] = self.condition
                     for i in range(0, len(main_road)):
-                        if (main_road[i][0] == self.number):
+                        if main_road[i][0] == self.number:
                             main_road.pop(i)
                             break
                     list_of_roads[self.ambition[0]].append(self.visible_position)
                 else:
-                    '''ждём'''
+                    # ждем
                     pass
             else:
-                '''переносим'''
+                # переносим
                 self.condition = 2
                 self.position = self.ambition[0]
                 self.visible_position[1] = 0
                 self.visible_position[2] = self.condition
                 for i in range(0, len(main_road)):
-                    if (main_road[i][0] == self.number):
+                    if main_road[i][0] == self.number:
                         main_road.pop(i)
                         break
                 list_of_roads[self.ambition[0]].append(self.visible_position)
 
 
-        elif (self.condition == 2):
-            '''идёт к месту'''
+        elif self.condition == 2:
+            # идет к месту
             max_step_long = 0
             for i in range(0, len(list_of_roads[self.position])):
-                if (list_of_roads[self.position][i][0] == self.number):
+                if list_of_roads[self.position][i][0] == self.number:
                     break
-            if (len(list_of_roads[self.position]) > i + 1):
-                if (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() > self.visible_position[1] + self.speed):
+            if len(list_of_roads[self.position]) > i + 1:
+                if list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() > self.visible_position[1] + self.speed:
                     max_step_long = self.speed
                 else:
-                    if (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_condition() == 3):
-                        if (len(list_of_roads[self.position]) > i + 2):
-                            if (list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() > self.visible_position[1] + self.speed // 2):
+                    if list_of_passengers[list_of_roads[self.position][i + 1][0]].get_condition() == 3:
+                        if len(list_of_roads[self.position]) > i + 2:
+                            if list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() > self.visible_position[1] + self.speed // 2:
                                 max_step_long = self.speed // 2
                             else:
                                 max_step_long = (list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() - self.visible_position[1])
@@ -136,10 +131,10 @@ class passenger():
             else:
                 max_step_long = self.speed
 
-            '''проверка на выход'''
+            # проверка на выход
 
             if (self.ambition[1] - max_step_long <= self.visible_position[1]):
-                '''шаг ровно к точке входа'''
+                # шаг ровно к точке входа
                 self.condition = 3
                 self.visible_position[2] = self.condition
                 self.visible_position[1] = self.ambition[1]
@@ -151,7 +146,7 @@ class passenger():
                         elif (self.ambition[2] < 3 and list_of_seats[i][2] < 3 and list_of_seats[i][0] > self.ambition[2]):
                             self.oll_time += list_of_seats[i][3]
             else:
-                '''обычный шаг'''
+                # обычный шаг
                 self.visible_position[1] += max_step_long
 
         elif (self.condition == 3):
@@ -171,19 +166,16 @@ class passenger():
 
         else:
             pass
-            '''не наступит'''
-
 
     def get_last_point(self):
         return self.visible_position[1] - self.long
-
 
     def get_condition(self):
         return self.condition
 
 
 def let_one_in():
-    '''пустить ещё кого нибудь'''
+    # Пустить ещё кого-нибудь
     global on_board_now
 
     global list_of_passengers
@@ -191,9 +183,9 @@ def let_one_in():
 
     global main_road
 
-    if (len(ambition_list) > on_board_now):
-        if (len(main_road) != 0):
-            if (list_of_passengers[main_road[0][0]].get_last_point() >= road_wight):
+    if len(ambition_list) > on_board_now:
+        if len(main_road) != 0:
+            if list_of_passengers[main_road[0][0]].get_last_point() >= road_wight:
                 list_of_passengers.append(passenger(on_board_now))
                 on_board_now += 1
         else:
@@ -215,7 +207,7 @@ def take_a_step():
         i = 0
         n = len(list_of_roads[x])
         while i < n:
-            if (len(list_of_roads[x]) != 0):
+            if len(list_of_roads[x]) != 0:
                 list_of_passengers[list_of_roads[x][i][0]].move()
                 if n == len(list_of_roads[x]):
                     i += 1
@@ -231,10 +223,9 @@ def take_a_step():
         else:
             n = len(main_road)
 
-'''############################################################№№№№№№№№#########'''
 
 def build_for_flying_wing():
-    '''собрать параметры для летающего крыла'''
+    # Собрать параметры для летающего крыла
     global ambition_list
 
     global list_of_roads
@@ -262,7 +253,7 @@ def build_for_flying_wing():
 
 
 def build_for_narrow_body():
-    '''собрать параметры для узкофузюляжного'''
+    # Собрать параметры для узкофюзеляжного
     global ambition_list
 
     global list_of_roads
@@ -283,7 +274,7 @@ def build_for_narrow_body():
 
 
 def build_for_two_entrance():
-    '''собрать параметры для широкого с двумя рядами'''
+    # Cобрать параметры для широкого с двумя рядами
     global ambition_list
 
     global list_of_roads
@@ -306,7 +297,7 @@ def build_for_two_entrance():
 
 
 def build_ambition_list_for_flying_wing_random(n):
-    '''массив с билетами для летающего крыла (случайно)'''
+    # Массив с билетами для летающего крыла (случайно)
     global ambition_list
     global distance_between_seats
     global seats_lenght
@@ -327,14 +318,14 @@ def build_ambition_list_for_flying_wing_random(n):
 
 
 def build_ambition_list_for_narrow_body_random(n):
-    '''массив с билетами для узко фезюляжного (случайно)'''
+    # Массив с билетами для узкофюзеляжного (случайно)
     global ambition_list
     global distance_between_seats
     global seats_lenght
 
     for i in range(0, 33):
         for j in range(0, 7):
-            if (j == 3):
+            if j == 3:
                 continue
             ambition_list.append([0, i * (seats_lenght + distance_between_seats), j])
 
@@ -343,7 +334,7 @@ def build_ambition_list_for_narrow_body_random(n):
 
 
 def build_ambition_list_for_two_entrance_random(n):
-    '''массив с билетами для для широкого с двумя рядами (случайно)'''
+    # Массив с билетами для широкого с двумя рядами (случайно)
     global ambition_list
     global distance_between_seats
     global seats_lenght
@@ -351,11 +342,11 @@ def build_ambition_list_for_two_entrance_random(n):
     for i in range(0, 2):
         for j in range(0, 20):
             for k in range(0, 7):
-                if (k == 3):
+                if k == 3:
                     continue
-                if (i == 0 and j >= 11 and k < 3):
+                if i == 0 and j >= 11 and k < 3:
                     continue
-                if (i == 3 and j >= 11 and k > 3):
+                if i == 3 and j >= 11 and k > 3:
                     continue
                 ambition_list.append([i, j * (seats_lenght + distance_between_seats), k])
 
@@ -364,15 +355,13 @@ def build_ambition_list_for_two_entrance_random(n):
 
 
 def build_ambition_list_for_narrow_body_sections(n, p1, p2, p3):
-    '''массив с билетами для узко фезюляжного (по группам)'''
+    # Массив с билетами для узкофюзеляжного (по группам)
     global ambition_list
     global distance_between_seats
     global seats_lenght
 
 
-'''############################################################№№№№№№№№#########'''
-
-for iteration in range(0, 10):
+for iteration in range(0, 1000):
 
     ambition_list = []
 
@@ -391,15 +380,15 @@ for iteration in range(0, 10):
 
 
     ####################################################
-    #build_for_flying_wing() # для летающего крыла
-    #build_for_narrow_body() # для узкофезюляжного
-    build_for_two_entrance() # для самолёта с двумя проходами
+    build_for_flying_wing()
+    # build_for_narrow_body()
+    # build_for_two_entrance()
     ####################################################
 
     ####################################################
-    #build_ambition_list_for_flying_wing_random(1) # для летающего крыла (случайно)
-    #build_ambition_list_for_narrow_body_random(1) # для узкофезюляжного (случайно)
-    build_ambition_list_for_two_entrance_random(1) # для широкого с двумя проходами (случайно)
+    build_ambition_list_for_flying_wing_random(1)
+    # build_ambition_list_for_narrow_body_random(1)
+    # build_ambition_list_for_two_entrance_random(1)
     ####################################################
 
 
@@ -409,7 +398,7 @@ for iteration in range(0, 10):
     sat_down = 0
     step = 0
     with open("main_model_out/out_of_iteration_" + str(iteration) + ".csv", "w") as f:
-        while (sat_down < len(ambition_list)):
+        while sat_down < len(ambition_list):
             step += 1
             let_one_in()
             take_a_step()

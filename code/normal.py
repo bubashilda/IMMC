@@ -156,12 +156,8 @@ def move_in_buffer():
 
 
 sec = 0
-aisles.append(Aisle(seating=[[Passenger(5, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
-                             [Passenger(5, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
-                             [Passenger(5, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
-                             [Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
-                             [Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)],
-                             [Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)]], y=3))
+# Здесь задаются ряды
+aisles.append(Aisle(seating=[[Passenger(1, 1, 1, 1), [], Passenger(1, 1, 1, 1), Passenger(1, 1, 1, 1)]], y=3))
 while passengers_on_board != 0:
     for aisle in aisles:
         aisle.move()

@@ -1,13 +1,13 @@
 import csv
 
 arr = []
-for i in range(2000):
+for i in range(4000):
     arr.append(0)
 ITERATIONS = 1000
 PART = 1
 maximum = 0
 for i in range(ITERATIONS):
-    with open(f'../models/data/simple_model_out/out_of_iteration_{i}.csv') as file:
+    with open(f'../main_model/main_model_out/out_of_iteration_{i}.csv') as file:
         for line in file:
             tmp = line.split(';')
             arr[int(tmp[0])] += int(tmp[1])
@@ -17,7 +17,7 @@ arr = arr[0:(maximum // ITERATIONS) + 1]
 for i in range(maximum // ITERATIONS):
     arr[i] /= (ITERATIONS * 198 * PART)
 print(maximum / ITERATIONS)
-with open('data/results/steffen.csv', 'w') as file:
+with open('../main_model/results/two_aisle.csv', 'w') as file:
     writer = csv.writer(file)
     writer.writerow(['time', 'part'])
     for i in range(len(arr)):
