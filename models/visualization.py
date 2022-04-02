@@ -63,7 +63,7 @@ for i in range(0, len(f)):
             w.append(f[i][7 * j + k])
         q.append(w)
     print(q)
-    win_1 = model(q).place(x = 20, y = 10)
+    win_1 = model(q).place(x = 0, y = 10)
     root.update()
     time.sleep(0.005)
 

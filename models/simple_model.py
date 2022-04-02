@@ -238,11 +238,11 @@ for iteration in range(0, 10):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-    #sort_random(1)
+    sort_random(1)
     #sort_sections(1, 3, 2, 1)
     #sort_windows(1)
     #sort_piramidka(1)
-    sort_steffen(1)
+    #sort_steffen(1)
     ################################
     on_board_now = 0
     passenger_list = []
