@@ -32,7 +32,7 @@ class model(Frame):
                 elif q[x][y] == "2":
                     canvas.create_rectangle(
                     x_help + x * 42, y_help + y * 42, x_help + x * 42 + 35, y_help + y * 42 + 35,
-                    outline="gray0", fill="grey52")
+                    outline="gray0", fill="gray52")
 
                 else:
                     if y == 3:
@@ -54,6 +54,7 @@ root.title("Plane")
 root.configure(bg='Snow')
 root.resizable(width=False, height=False)
 
+
 f = open("data/simple_model_out/out_of_iteration_0.csv", "r").readlines()
 for i in range(0, len(f)):
     q = []
@@ -65,6 +66,6 @@ for i in range(0, len(f)):
     print(q)
     win_1 = model(q).place(x = 0, y = 10)
     root.update()
-    time.sleep(0.1)
+    time.sleep(0.001)
 
 root.mainloop()

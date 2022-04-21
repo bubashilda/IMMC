@@ -1,5 +1,8 @@
 import random
 
+from tkinter import *
+import time
+
 ambition_list = []
 
 list_of_passengers = []
@@ -16,6 +19,47 @@ road_wight = 5
 seats_width = 6
 seats_lenght = 6
 distance_between_seats = 3
+
+list_to_paint_it = []
+
+class model(Frame):
+    def __init__(self):
+        global list_to_paint_it
+
+        global main_road
+        global list_of_roads
+
+        super().__init__()
+        self.get_graphics()
+
+
+    def get_graphics(self):
+        global list_to_paint_it
+
+        global main_road
+        global list_of_roads
+
+        global list_of_moving_points
+
+        self.master.title("Plane")
+        self.pack(fill=BOTH, expand=1)
+        canvas = Canvas(self, width=800, height=800, bg="gray80")
+        # тут отрисовка
+
+        canvas.delete("all")
+
+        k = 2
+        n = 1
+
+        for i in range(0, len(main_road)):
+            #canvas.create_line(main_road[i][0] * 10, 10, main_road[i][1] * 10, 10)
+            canvas.create_line(main_road[i][0] * k, n * k, main_road[i][1] * k, n * k)
+
+        for i in range(0, len(list_of_roads)):
+            for j in range(0, len(list_of_roads[i])):
+                canvas.create_line(list_of_moving_points[i] * k, (list_of_roads[i][j][0]) * k + n * k, list_of_moving_points[i] * k, (list_of_roads[i][j][1]) * k + n * k)
+
+        canvas.pack(fill=BOTH, expand=1)
 
 
 class passenger():
@@ -47,7 +91,7 @@ class passenger():
 
         global list_of_moving_points
         global list_of_seats_coordinates
-        #print(list_of_roads)
+        print(list_of_roads)
         #print(self.visible_position)
         if self.condition == 0:
             # идет по главной
@@ -361,7 +405,14 @@ def build_ambition_list_for_narrow_body_sections(n, p1, p2, p3):
     global seats_lenght
 
 
+
+
 for iteration in range(0, 1):
+    root = Tk()
+    root.geometry("800x800" + "+" + str(10) + "+" + str(50))
+    root.title("Plane")
+    root.configure(bg='Snow')
+    root.resizable(width=False, height=False)
 
     ambition_list = []
 
@@ -380,17 +431,16 @@ for iteration in range(0, 1):
 
 
     ####################################################
-    #build_for_flying_wing()
-    build_for_narrow_body()
-    # build_for_two_entrance()
+    build_for_flying_wing()
+    #build_for_narrow_body()
+    #build_for_two_entrance()
     ####################################################
 
     ####################################################
-    #build_ambition_list_for_flying_wing_random(1)
-    build_ambition_list_for_narrow_body_random(1)
-    # build_ambition_list_for_two_entrance_random(1)
+    build_ambition_list_for_flying_wing_random(1)
+    #build_ambition_list_for_narrow_body_random(1)
+    #build_ambition_list_for_two_entrance_random(1)
     ####################################################
-
 
 
 
@@ -406,3 +456,9 @@ for iteration in range(0, 1):
 
             f.write(str(step) + ";" + str(sat_down) + "\n")
             print(step)
+
+            win_1 = model().place(x = 0, y = 10)
+            root.update()
+            #time.sleep(1)
+
+root.mainloop()

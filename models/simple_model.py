@@ -222,7 +222,7 @@ def sort_steffen_and_group(n):
     ambition_list = g_1 + g_2 + g_3 + g_4
 
 
-for iteration in range(0, 10):
+for iteration in range(0, 1):
     number_of_seats = 33
     plane = [] # список с координатами
     for i in range(0, number_of_seats + 1):
@@ -235,20 +235,14 @@ for iteration in range(0, 10):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
     #################################
-<<<<<<< HEAD
-    sort_random(1)
+
+    #Выбор метода сортировки condition_list
+    sort_random(1) #!
     #sort_sections(1, 3, 2, 1)
     #sort_windows(1)
-    #sort_piramidka(1)
+    #sort_piramidka(1) #!
     #sort_steffen(1)
-=======
-    # Выбор метода сортировки condition_list
-    # sort_random(1)
-    # sort_sections(1, 3, 2, 1)
-    # sort_windows(0.3)
-    sort_piramidka(0.3)
-    # sort_steffen(0.3)
->>>>>>> 07e643be6e614ffe347444c0f08c4b38448b4c98
+
     ################################
     on_board_now = 0
     passenger_list = []
@@ -272,10 +266,11 @@ for iteration in range(0, 10):
                 pass
             step_now += 1
             sat_down_now = sat_down_step_forward
-            # f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
+            #f.write(str(step_now) + ";" + str(sat_down_now) + "\n")
             # Вывод результата в файл
             s = ""
             for i in range(0, 34):
                 for j in range(0, 7):
                     s += str(conditions_list[i][j])
             f.write(s + "\n")
+            print(step_now)
