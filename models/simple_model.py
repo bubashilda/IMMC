@@ -16,6 +16,7 @@ class passenger():
         self.speed = 1
         self.condition = 0 # 0 - идёт,  1 - садится, 2 - сидит
 
+
     def move(self):
         global plane
         global other_time_list
@@ -51,6 +52,7 @@ class passenger():
                 self.condition = 2
                 conditions_list[self.position[0]][self.position[1]] = self.condition
                 other_time_list[self.position[0]][self.position[1]] = self.other_time_for_feet
+
 
     def get_condition(self):
         return self.condition
@@ -222,6 +224,7 @@ def sort_steffen_and_group(n):
     ambition_list = g_1 + g_2 + g_3 + g_4
 
 
+input_s = open("simple_model_input.txt", "r").readlines
 for iteration in range(0, 1):
     number_of_seats = 33
     plane = [] # список с координатами
@@ -234,16 +237,18 @@ for iteration in range(0, 1):
     for i in range(0, number_of_seats + 1):
         conditions_list.append([3, 3, 3, 3, 3, 3, 3])
     ambition_list = []
-    #################################
 
+
+    #################################
     #Выбор метода сортировки condition_list
     sort_random(1) #!
     #sort_sections(1, 3, 2, 1)
     #sort_windows(1)
     #sort_piramidka(1) #!
     #sort_steffen(1)
-
     ################################
+
+
     on_board_now = 0
     passenger_list = []
     passenger_list.append(passenger(on_board_now))
