@@ -48,7 +48,7 @@ class model(Frame):
 
         canvas.delete("all")
 
-        k = 2
+        k = 4
         n = 0
 
         for i in range(0, len(main_road)):
@@ -58,6 +58,14 @@ class model(Frame):
         for i in range(0, len(list_of_roads)):
             for j in range(0, len(list_of_roads[i])):
                 canvas.create_line(list_of_moving_points[i] * k, ((list_of_roads[i][j][1])) * k + n * k, list_of_moving_points[i] * k, ((list_of_roads[i][j][1]) + 1) * k + n * k, width = 3)
+
+        for i in list_of_seats:
+            if road_wight * (3 - i[2]) > 0:
+                help_1 = road_wight * (3 - i[2]) + road_wight // 2
+            else:
+                help_1 = road_wight * (3 - i[2]) - road_wight // 2
+
+            canvas.create_rectangle((list_of_moving_points[i[0]] + help_1) * k, (i[1] - 2) * k, ((list_of_moving_points[i[0]] + help_1) + road_wight) * k, (i[1]) * k)
 
         canvas.pack(fill=BOTH, expand=1)
 
@@ -101,8 +109,8 @@ class passenger():
         main_road.sort(key=lambda x: x[0])
         main_road.reverse()
 
-
-        print(main_road)
+        print(list_of_seats)
+        #print(main_road)
 
         #print(list_of_roads)
         #print(self.visible_position)
@@ -245,7 +253,7 @@ def let_one_in():
 
     if len(ambition_list) > on_board_now:
         if len(main_road) != 0:
-            if list_of_passengers[main_road[0][0]].get_last_point() >= 0:
+            if list_of_passengers[main_road[0][0]].get_last_point() > 0:
                 list_of_passengers.append(passenger(on_board_now))
                 on_board_now += 1
         else:
@@ -447,15 +455,15 @@ for iteration in range(0, 1):
 
 
     ####################################################
-    build_for_flying_wing()
+    #build_for_flying_wing()
     #build_for_narrow_body()
-    #build_for_two_entrance()
+    build_for_two_entrance()
     ####################################################
 
     ####################################################
-    build_ambition_list_for_flying_wing_random(1)
+    #build_ambition_list_for_flying_wing_random(1)
     #build_ambition_list_for_narrow_body_random(1)
-    #build_ambition_list_for_two_entrance_random(1)
+    build_ambition_list_for_two_entrance_random(1)
     ####################################################
 
 
@@ -475,6 +483,6 @@ for iteration in range(0, 1):
 
             win_1 = model().place(x = 0, y = 10)
             root.update()
-            time.sleep(0.01)
+            #time.sleep(0.01)
 
 root.mainloop()
