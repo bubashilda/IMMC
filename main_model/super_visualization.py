@@ -91,8 +91,20 @@ class passenger():
 
         global list_of_moving_points
         global list_of_seats_coordinates
-        #print(main_road)
-        print(list_of_roads)
+
+
+
+        for i in range(0, len(list_of_roads)):
+            list_of_roads[i].sort(key=lambda x: x[1])
+            list_of_roads.reverse()
+
+        main_road.sort(key=lambda x: x[0])
+        main_road.reverse()
+
+
+        print(main_road)
+
+        #print(list_of_roads)
         #print(self.visible_position)
         if self.condition == 0:
             # идет по главной
@@ -167,10 +179,14 @@ class passenger():
                                 max_step_long = self.speed // 2
                             else:
                                 max_step_long = (list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() - self.visible_position[1])
+                                if max_step_long < 0:
+                                    max_step_long = 0
                         else:
                             max_step_long = self.speed // 2
                     else:
                         max_step_long = (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() - self.visible_position[1])
+                        if max_step_long < 0:
+                            max_step_long = 0
 
 
             else:
@@ -218,7 +234,6 @@ class passenger():
     def get_condition(self):
         return self.condition
 
-
 def let_one_in():
     # Пустить ещё кого-нибудь
     global on_board_now
@@ -230,7 +245,7 @@ def let_one_in():
 
     if len(ambition_list) > on_board_now:
         if len(main_road) != 0:
-            if list_of_passengers[main_road[0][0]].get_last_point() >= road_wight:
+            if list_of_passengers[main_road[0][0]].get_last_point() >= 0:
                 list_of_passengers.append(passenger(on_board_now))
                 on_board_now += 1
         else:
@@ -242,7 +257,7 @@ def take_a_step():
 
     for i in range(0, len(list_of_roads)):
         list_of_roads[i].sort(key=lambda x: x[0])
-        list_of_roads.reverse()
+        list_of_roads[i].reverse()
 
     main_road.sort(key=lambda x: x[0])
     main_road.reverse()
@@ -385,7 +400,7 @@ def build_ambition_list_for_two_entrance_random(n):
     global seats_lenght
 
     for i in range(0, 2):
-        for j in range(0, 40):
+        for j in range(0, 20):
             for k in range(0, 7):
                 if k == 3:
                     continue
@@ -432,15 +447,15 @@ for iteration in range(0, 1):
 
 
     ####################################################
-    #build_for_flying_wing()
+    build_for_flying_wing()
     #build_for_narrow_body()
-    build_for_two_entrance()
+    #build_for_two_entrance()
     ####################################################
 
     ####################################################
-    #build_ambition_list_for_flying_wing_random(1)
+    build_ambition_list_for_flying_wing_random(1)
     #build_ambition_list_for_narrow_body_random(1)
-    build_ambition_list_for_two_entrance_random(1)
+    #build_ambition_list_for_two_entrance_random(1)
     ####################################################
 
 
@@ -460,6 +475,6 @@ for iteration in range(0, 1):
 
             win_1 = model().place(x = 0, y = 10)
             root.update()
-            #time.sleep(0.1)
+            time.sleep(0.01)
 
 root.mainloop()

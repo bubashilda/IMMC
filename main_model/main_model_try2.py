@@ -47,6 +47,19 @@ class passenger():
 
         global list_of_moving_points
         global list_of_seats_coordinates
+
+
+
+        for i in range(0, len(list_of_roads)):
+            list_of_roads[i].sort(key=lambda x: x[0])
+            list_of_roads.reverse()
+
+        main_road.sort(key=lambda x: x[0])
+        main_road.reverse()
+
+
+
+
         #print(list_of_roads)
         #print(self.visible_position)
         if self.condition == 0:
@@ -122,10 +135,14 @@ class passenger():
                                 max_step_long = self.speed // 2
                             else:
                                 max_step_long = (list_of_passengers[list_of_roads[self.position][i + 2][0]].get_last_point() - self.visible_position[1])
+                                if max_step_long < 0:
+                                    max_step_long = 0
                         else:
                             max_step_long = self.speed // 2
                     else:
                         max_step_long = (list_of_passengers[list_of_roads[self.position][i + 1][0]].get_last_point() - self.visible_position[1])
+                        if max_step_long < 0:
+                            max_step_long = 0
 
 
             else:
