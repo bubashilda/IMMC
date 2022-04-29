@@ -426,7 +426,7 @@ def build_ambition_list_for_narrow_body_sections(n, p1, p2, p3):
 
 
 
-
+input_s = open("super_visualizator_input.txt", "r").readlines()
 for iteration in range(0, 1):
     root = Tk()
     root.geometry("800x800" + "+" + str(10) + "+" + str(50))
@@ -451,34 +451,45 @@ for iteration in range(0, 1):
 
 
     ####################################################
-    build_for_flying_wing()
+    #build_for_flying_wing()
     #build_for_narrow_body()
     #build_for_two_entrance()
     ####################################################
 
     ####################################################
-    build_ambition_list_for_flying_wing_random(1)
+    #build_ambition_list_for_flying_wing_random(1)
     #build_ambition_list_for_narrow_body_random(1)
     #build_ambition_list_for_two_entrance_random(1)
     ####################################################
 
 
+    count = float(input_s[13 - 1][0 : len(input_s) - 2])
+
+
+    if (input_s[9 - 1][0] == '1'):
+        build_for_flying_wing()
+        build_ambition_list_for_flying_wing_random(count)
+    elif (input_s[9 - 1][0] == '2'):
+        build_for_narrow_body()
+        build_ambition_list_for_narrow_body_random(count)
+    elif (input_s[9 - 1][0] == '2'):
+        build_for_two_entrance()
+        build_ambition_list_for_two_entrance_random(count)
+
 
     on_board_now = 0
     sat_down = 0
     step = 0
-    with open("main_model_out/out_of_iteration_" + str(iteration) + ".csv", "w") as f:
-        while sat_down < len(ambition_list):
-            step += 1
-            let_one_in()
-            take_a_step()
-            #print(sat_down)
+    while sat_down < len(ambition_list):
+        step += 1
+        let_one_in()
+        take_a_step()
+        #print(sat_down)
 
-            #f.write(str(step) + ";" + str(sat_down) + "\n")
-            print(step)
+        print(step)
 
-            win_1 = model().place(x = 0, y = 10)
-            root.update()
-            time.sleep(0.01)
+        win_1 = model().place(x = 0, y = 10)
+        root.update()
+        time.sleep(float(input_s[16 - 1][0 : len(input_s) - 2]))
 
 root.mainloop()
